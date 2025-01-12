@@ -5,7 +5,9 @@
 package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.TalonSRXControlMode;
+import com.ctre.phoenix.motorcontrol.VictorSPXControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.ctre.phoenix6.hardware.TalonFX;
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -31,6 +33,9 @@ public class Robot extends TimedRobot {
 
   /* CAN ID FOR ONE THE OTHER MOTOR CONTROLLER (where it says 45) */
   private static final TalonSRX elevator2 = new TalonSRX(35);
+
+  private static final VictorSPX claw = new VictorSPX(32);
+
 
   /**
    * This function is run when the robot is first started up and should be used for any
@@ -96,8 +101,11 @@ public class Robot extends TimedRobot {
     // ONLY ONE BLOCK OF CODE AT A TIME
 
     // INDEPENDANT MOVEMENT
-    elevator1.set(TalonSRXControlMode.PercentOutput, 0.1*controller.getLeftY());
-    elevator2.set(TalonSRXControlMode.PercentOutput, 0.1*controller.getRightX());
+    elevator1.set(TalonSRXControlMode.PercentOutput, -1.0*controller.getLeftY());
+    elevator2.set(TalonSRXControlMode.PercentOutput, 1.0*controller.getLeftY());
+
+    claw.set(VictorSPXControlMode.PercentOutput, -1.0*controller.getRightY());
+
 
     // FOLLOWER SAME DIRECTION
     // elevator1.set(TalonSRXControlMode.PercentOutput, 0.1*controller.getLeftY());
